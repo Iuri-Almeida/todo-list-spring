@@ -3,8 +3,11 @@ package br.com.ialmeida.todolistspring.services;
 import br.com.ialmeida.todolistspring.entities.Task;
 import br.com.ialmeida.todolistspring.entities.enums.State;
 import br.com.ialmeida.todolistspring.repositories.TaskRepository;
+import br.com.ialmeida.todolistspring.services.exceptions.DatabaseException;
 import br.com.ialmeida.todolistspring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -34,7 +37,13 @@ public class TaskService {
     }
 
     public void delete(Long id) {
-        taskRepository.deleteById(id);
+        try {
+            taskRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public Task update(Long id, Task task) {
