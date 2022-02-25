@@ -23,10 +23,11 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
-    public Comment(Long id, Date createdDate, String text) {
+    public Comment(Long id, Date createdDate, String text, Task task) {
         this.id = id;
         this.createdDate = createdDate;
         this.text = text;
+        this.task = task;
     }
 
     public Long getId() {
