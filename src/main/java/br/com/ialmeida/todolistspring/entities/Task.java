@@ -3,8 +3,6 @@ package br.com.ialmeida.todolistspring.entities;
 import br.com.ialmeida.todolistspring.entities.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -94,6 +92,10 @@ public class Task implements Serializable {
 
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     @Override

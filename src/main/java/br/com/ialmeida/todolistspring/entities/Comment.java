@@ -58,6 +58,14 @@ public class Comment implements Serializable {
         this.text = text;
     }
 
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
