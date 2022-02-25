@@ -3,6 +3,7 @@ package br.com.ialmeida.todolistspring.services;
 import br.com.ialmeida.todolistspring.entities.Task;
 import br.com.ialmeida.todolistspring.entities.enums.State;
 import br.com.ialmeida.todolistspring.repositories.TaskRepository;
+import br.com.ialmeida.todolistspring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class TaskService {
 
     public Task findById(Long id) {
         Optional<Task> obj = taskRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Task insert(Task task) {
@@ -37,7 +38,7 @@ public class TaskService {
     }
 
     public Task update(Long id, Task task) {
-        Task entity = taskRepository.getById(id);
+        Task entity = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         updateData(entity, task);
         return taskRepository.save(entity);
     }
