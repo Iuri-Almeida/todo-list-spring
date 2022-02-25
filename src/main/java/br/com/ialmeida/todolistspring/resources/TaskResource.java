@@ -36,4 +36,10 @@ public class TaskResource {
         return ResponseEntity.created(uri).body(task);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        taskService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
