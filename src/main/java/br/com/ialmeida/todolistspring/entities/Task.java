@@ -1,7 +1,10 @@
 package br.com.ialmeida.todolistspring.entities;
 
 import br.com.ialmeida.todolistspring.entities.enums.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,7 +25,11 @@ public class Task implements Serializable {
     private String title;
     private String description;
     private State state;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Date createdDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Date modifiedDate;
 
     @JsonIgnore
@@ -32,13 +39,13 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(Long id, String title, String description, State state, Date createdDate, Date modifiedDate) {
+    public Task(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.state = state;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
+        this.state = State.CREATED;
+        this.createdDate = new Date();
+        this.modifiedDate = new Date();
     }
 
     public Long getId() {
