@@ -36,4 +36,17 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    public Task update(Long id, Task task) {
+        Task entity = taskRepository.getById(id);
+        updateData(entity, task);
+        return taskRepository.save(entity);
+    }
+
+    private void updateData(Task entity, Task task) {
+        entity.setTitle(task.getTitle());
+        entity.setDescription(task.getDescription());
+        entity.setState(task.getState());
+        entity.setModifiedDate(new Date());
+    }
+
 }
