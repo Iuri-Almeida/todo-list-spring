@@ -1,6 +1,7 @@
 package br.com.ialmeida.todolistspring.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,15 +22,17 @@ public class Comment implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Date createdDate;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "task_id")
     private Task task;
 
     public Comment() {
     }
 
-    public Comment(Long id, Date createdDate, String text, Task task) {
+    public Comment(Long id, String text, Task task) {
         this.id = id;
-        this.createdDate = createdDate;
+        this.createdDate = new Date();
         this.text = text;
         this.task = task;
     }

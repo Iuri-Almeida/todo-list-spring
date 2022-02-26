@@ -30,7 +30,6 @@ public class Task implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Date modifiedDate;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "task")
     private List<Comment> comments = new ArrayList<>();
 
